@@ -1,28 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_tutorial/screens/screen_1.dart';
+import 'package:getx_tutorial/services/services.dart';
 
 class Screen2 extends StatelessWidget {
-  const Screen2({super.key});
+  Screen2({super.key});
+
+  final service = Get.find<Services>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: GestureDetector(
-          onTap: () {
-            // Navigator.push(
-            //     context, MaterialPageRoute(builder: (context) => Screen1()));
-
-            // Using Getx
-            // Get.to(() => Screen1());
-            Get.back();
-          },
-          child: const Text(
-            "Screen 2",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              "Screen 2",
+              style: TextStyle(fontSize: 32),
+            ),
+            Obx(
+              () => Text(
+                "${service.count}",
+                style: const TextStyle(fontSize: 40),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                service.increament();
+              },
+              child: const Text("Increament"),
+            ),
+          ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.back();
+        },
+        child: const Icon(Icons.arrow_back_ios),
       ),
     );
   }
